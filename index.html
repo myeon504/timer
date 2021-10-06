@@ -1,0 +1,118 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>사람비가 내려와~</title>
+	<link rel="stylesheet" href="https://use.typekit.net/ezf5buf.css">
+	<style type="text/css">
+
+		head, body, html, div, section, footer{margin: 0; overflow: hidden;}
+		body{display: block; height: 100vh; background-image: url('bg.png'); background-size: cover; background-repeat: no-repeat; background-position: center;}
+		
+		.man{width:80px; height:100vh; 
+			background-repeat:no-repeat;
+			animation: manFall 6s linear;
+		}
+		@keyframes manFall{
+			0%{background-position: 0 0vh; opacity: 0;}
+			5%{opacity: 1;}
+			95%{opacity: 1;}
+			100%{background-position: 0 100vh; opacity: 0;}
+		}
+
+		#time{ font-family: madre-script, sans-serif;
+				font-weight: 400;
+				font-size: 3em;
+				color: black;
+				margin-top: 30px;
+				margin-left: 100px;
+				margin-bottom: 0px;
+				position: absolute;
+				}
+		.absolute{position:  absolute;}
+		.img{width: 100%;}
+		#icon1{position: absolute; margin-top: 35px; margin-left: 30px; width: 50px; height: 50px;}
+		#icon2{position: absolute; margin-left: 85vw; float: right; margin-top: 35px; margin-right: 100px; width: 50px; height: 50px;}
+		#displayCount{
+			font-family: madre-script, sans-serif;
+			font-weight: 400;
+				font-size: 3em;
+				color: black;
+				margin-top: 30px;
+				margin-right: 40px;
+				margin-bottom: 0px;
+				float: right;}
+
+	</style>
+</head>
+<body>
+	<section>
+		<div id="time"></div>
+		<div id="icon1">
+		<img src="icon1.png" class="img">	
+		</div>
+		<div id="displayCount"> 0 </div>	
+		<div id="icon2">
+		<img src="icon2.png" class="img">
+		</div>
+	</section>
+
+	<script type="text/javascript">
+		var timeD = setInterval(timeValue, 100);
+		setTimeout(result, 30100);
+		var game = setInterval(catchMan,300);
+		var a = 0;
+		var count = 0;
+		function timeValue(){
+			a = a + 1;
+			console.log(a);
+			time.innerHTML = '00:' + (299-a) / 10
+		}
+
+		function result(){
+			alert("당신은 " + count + "명을 클릭했습니다");
+			clearInterval(game);
+			clearInterval(timeD);
+			window.close();
+		}
+
+		function random(min, max) {
+  			min = Math.ceil(min);
+  			max = Math.floor(max);
+  			return Math.floor(Math.random() * (max - min + 1)) + min;
+  		}
+
+		function catchMan(){
+			var b = document.createElement("div");
+			b.setAttribute("class","man");
+			b.style.position = "absolute";
+			b.style.background = "url('man.png') no-repeat"; 
+			b.style.backgroundSize = "100% auto";
+			b.style.left = random(0,window.innerWidth) + "px";
+			b.addEventListener("animationend",remove);
+			b.onclick = function(){
+				countMan(this);
+			}
+
+			document.body.appendChild(b);
+		}
+
+		function countMan(b){
+			var countText = "";
+			if(this){
+				count +=1;
+				countText = count
+			}
+			displayCount.innerHTML = countText;
+			remove(b);
+
+		}
+
+		function remove(){
+			var b = event.target;
+			b.parentNode.removeChild(b);
+		}
+
+
+	</script>
